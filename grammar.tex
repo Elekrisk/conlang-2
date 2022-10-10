@@ -1,0 +1,405 @@
+\documentclass[a5paper,twoside]{book}
+
+\usepackage{tabularx}
+\usepackage[pagestyles]{titlesec}
+\usepackage{lipsum}
+\usepackage{fontspec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{xstring}
+\usepackage{xparse}
+\usepackage{expl3}
+
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+
+\newcommand{\mychaptertitle}{\ifnum\thechapter>0\chaptername\ \thechapter\ --\ \chaptertitle\fi}
+\newcommand{\mysethead}[3]{\sethead[#3][#2][#1]{#1}{#2}{#3}}
+\newcommand{\mysetfoot}[3]{\setfoot[#3][#2][#1]{#1}{#2}{#3}}
+
+\newcommand{\Tstrut}{\rule{0pt}{2.6ex}}
+
+\newfontfamily\ipafont[Path = font/, UprightFont = *-Regular]{DoulosSIL}
+
+\newcommand{\ipa}[1]{{\ipafont #1}}
+
+\renewpagestyle{plain}{\mysetfoot{}{}{\thepage}}
+\newpagestyle{mystyle}{
+    \mysethead{}{\mychaptertitle}{}
+    \mysetfoot{}{}{\thepage}
+}
+\pagestyle{mystyle}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\itshape}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\titleformat{\chapter}[display]{\normalfont\Large}{Chapter \thechapter}{1pc}{\titlerule\vspace{1pc}\Huge}
+
+
+\NewDocumentEnvironment{examples}{}{
+    % \ExplSyntaxOn
+    % \int_new:n \count
+    % \ProvideDocumentCommand{\example}{}{
+    %     \paragraph*{Example \int_eval:n {\count}}
+    % }
+    % \ExplSyntaxOff
+}{
+
+}
+
+
+\newcommand{\name}{CONLANG}
+\title{\name}
+\author{Einar Persson}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\tableofcontents
+\mainmatter
+
+\part{Phonology}
+
+\chapter{Phonology}
+
+\section{Vowels}
+
+\newcommand{\ipaort}[2]{\ipa{#1} $\langle$#2$\rangle$}
+
+\begin{tabular}{r|c c}
+    & Front & Back \\\hline
+    High     & \ipaort{i}{i} & \ipaort{u}{u}\Tstrut\\
+    Mid      & \ipaort{ɛ}{e} \\
+    Mid-high & \ipaort{æ}{ê} & \ipaort{ɔ}{o} \\
+    Low      & \ipaort{a}{a} \\
+\end{tabular}
+
+\section{Consonants}
+
+\begin{tabular}{r|c c c c c c c c c c}
+    & Bilabial & Alveolar & Palatal & Velar \\\hline
+    Nasal & \ipaort{m}{m} & \ipaort{n}{n}\Tstrut\\
+    Plosive & \ipaort{p}{p} & \ipaort{t}{t} && \ipaort{k}{k}  \\
+    Fricative & \ipaort{f}{f} & \ipaort{s}{s} & \ipaort{ç}{c} & \ipaort{h}{h} \\
+    Approximant && \ipaort{l}{l} & \ipaort{j}{j} \\
+    Rhotic && \ipaort{r}{r}
+\end{tabular}
+
+\subsection*{Non-pulmonic}
+\begin{tabular}{c c c c c c}
+    \ipaort{pʼ}{pp} & \ipaort{tʼ}{tt} & \ipaort{kʼ}{kk}
+\end{tabular}
+
+\section{Phonotactics}
+
+\part{Grammar}
+
+\newcommand{\myrepeat}[2]{
+\ExplSyntaxOn
+    % \ifnum 0 > {\int_eval:n #1}TRUE\fi
+    \int_new:N \count
+    \int_set:Nn \count {#1}
+\ExplSyntaxOff
+}
+
+\NewDocumentCommand{\gloss}{m o m m}{
+    \noindent\begin{quote}\begin{tabular}{l l l l l l l l l l l l l l l l}
+        #1\\
+        \IfNoValueTF{#2}{}{#2\\}
+        #3
+    \end{tabular}\\
+    \noindent\begin{tabular}{l}#4\end{tabular}\end{quote}
+}
+
+\chapter{Sentence structure}
+
+\name\ is what I call a S2-language; the subject must always be the second element.
+Compare with V2-languages.\vspace{1em}
+
+Example:
+
+\begin{tabular}{c|c|c|c|c}
+    Fundament & Subject & Verb & Object & Adjuncts\\\hline
+    --- & me & et & futo \\
+\end{tabular}
+
+\begin{tabular}{c|c|c|c|c}
+    Fundament & Subject & Verb & Object & Adjuncts\\\hline
+    --- & me & et & futo \\
+\end{tabular}
+
+\begin{tabular}{c|c|c|c|c}
+    Fundament & Subject & Verb & Object & Adjuncts\\\hline
+    --- & me & et & futo \\
+\end{tabular}
+
+\chapter{Parts of Speech}
+
+\section{Pronouns}
+
+\begin{tabular}{r|l l l}
+    & Obviate & Proximate \\\hline
+    1 & me & --\Tstrut\\
+    2 & to & --\\
+    3 & ci & cinê
+\end{tabular}
+
+\section{Nouns}
+
+\subsection{Cases}
+
+\begin{tabular}{l l l l l}
+
+\end{tabular}
+
+\section{Verbs}
+
+There are intransitive and transitive verbs.
+
+The object of transitive verbs can be dropped
+to turn the verb into an intransive one.
+
+Whenever a verb is used, it's subject
+becomes the \emph{theme}, and any words to refer
+to it must use the \emph{proximate} gender until another \emph{theme}
+has been established.
+
+Verbs must be used in one of several moods:
+\begin{itemize}
+    \item Active
+    \item Passive
+\end{itemize}
+
+\subsection{Active}
+
+A verb can be marked \emph{active}.
+
+The subject is the agent.
+The object is the patient or experiencer.
+
+\begin{examples}
+
+    % \example
+    et to futo on me
+    futo to et on me
+
+\end{examples}
+
+
+\subsubsection*{Examples}
+
+\paragraph*{Example 1}
+
+\gloss
+{Etat & me & futo}
+{eat-\sc{active} & 1 & fruit}
+{I eat a fruit}
+
+\noindent \emph{me} becomes the theme.
+
+\paragraph*{Example 2}
+
+\gloss
+{Etat & me}
+{eat-\sc{active} & 1}
+{I eat}
+
+\noindent Same here: \emph{me} becomes the theme.
+
+\subsection{Passive}
+
+A verb can be marked \emph{passive}.
+
+The subject is the patient or experiencer.
+The second argument is the agent.
+
+\subsubsection*{Examples}
+
+\paragraph*{Example 1}
+
+\gloss
+{etel & futo & me}
+{eat-\sc{passive} & fruit & 1}
+{a fruit is eaten by me}
+\vspace{0.5em}
+
+\noindent \emph{futo} becomes the theme.
+
+\paragraph*{Example 2}
+
+\gloss
+{etel & futo}
+{eat-\sc{passive} & fruit}
+{a fruit is eaten}
+
+\noindent Same here: \emph{futo} becomes the theme.
+
+\subsection{Incorporation}
+
+\subsubsection{Intransitive active incorporation}
+
+An intransitive active verb with a prepositional phrase, in the form \emph{V S prep NP},
+may be transformed into \emph{prep-V S NP}, with the same meaning.
+
+This changes the verb's valency from one to two.
+
+\paragraph*{Example 1}
+
+\gloss
+{etat & me & a & futo}
+[et--at & me & a & futo]
+{eat--\sc{act} & 1 & on & fruit}
+{I eat on top of a fruit}
+
+to
+
+\gloss
+{a-etat & me & futo}
+[a--et--at & me & futo]
+{on--eat--\sc{act} & 1 & fruit}
+{I eat on top of a fruit}
+
+\paragraph*{Example 2}
+
+\gloss
+{etel & futo & a & me}
+[et--el & futo & a & me]
+{eat--\sc{pas} & fruit & on & 1}
+{A fruit is eaten on me}
+
+to
+
+\gloss
+{a-etel & futo & me}
+[a--et--el & futo & me]
+{on--eat--\sc{pas} & fruit & on & 1}
+{A fruit is eaten on me}
+
+\subsubsection{Transitive incorporation}
+
+A transitive verb with a prepositional phrase, in the form \emph{V S O prep NP},
+may be transformed into \emph{prep-V S NP}, with \emph{almost} the same meaning.
+Note that the object is now omitted and must be inferred from context.
+
+This doesn't change the verb's valency.
+
+\paragraph*{Example 1}
+
+\gloss
+{etat & me & futo & a & to}
+[et--at & me & futo & a & to]
+{eat--\sc{act} & 1 & fruit & on & you}
+{I eat a fruit on you}
+to
+\gloss
+{a-etat & me & to}
+[a--et--at & me & to]
+{on--eat--\sc{act} & 1 & you}
+{I eat on you}
+Note that the reference to the fruit has been dropped.
+
+\paragraph*{Example 1}
+
+\section{Adjuncts}
+
+\subsection{Prepositional phrases}
+
+A prepositional phrase is built from a preposition and a noun phrase.
+
+\subsubsection{Describing cause}
+
+The preposition \emph{ettet} describes the cause of a verb phrase;
+who or what caused the action to happen?
+
+
+
+\part{Dictionary}
+
+
+\newcommand{\replipa}[1]{%
+  \saveexpandmode\noexpandarg
+  \def\tempstring{#1}%
+  \xStrSubstitute{\tempstring}{e}{ɛ}[\tempstring]%
+  \xStrSubstitute{\tempstring}{ê}{æ}[\tempstring]%
+  \xStrSubstitute{\tempstring}{o}{ɔ}[\tempstring]%
+  \ipa{\tempstring}%
+  \restoreexpandmode%
+}
+\newcommand*{\xStrSubstitute}{%
+  \expandafter\StrSubstitute\expandafter%
+}
+
+\NewDocumentCommand{\entry}{m m m}{%
+\textbf{#1} %\replipa{/#1/}
+$\bullet$ \emph{#2} \\%
+\hspace*{1cm}%
+\begin{minipage}{.8\linewidth}%
+    #3%
+\end{minipage}\par%
+}
+
+\renewcommand{\sc}[1]{\textsc{#1}}
+
+% \begin{twocolumn}
+{
+    \setlength{\parindent}{0pt}
+    \chapter{\name\ → English}
+
+    \section{A}
+
+    \entry{a}{prep.}{On.}
+
+    \section{E}
+
+    \entry{et}{verb}{To eat.}
+
+    \section{Ê}
+    \section{I}
+    \section{O}
+    \section{U}
+    \section{M}
+    
+    \entry{me}{pronoun}{First person pronoun.}
+
+    \section{N}
+    \section{P}
+    \section{P'}
+    \section{T}
+    
+    \entry{to}{pronoun}{Second person pronoun.}
+
+    \section{T'}
+    \section{K}
+    \section{K'}
+    
+    \entry{k'al}{verb}{To be.}
+
+    \section{F}
+    
+    \entry{futo}{noun}{Fruit.}
+
+    \section{S}
+    \section{C}
+    
+    \entry{ci}{pronoun}{Third person pronoun, obviate.}
+    \entry{cinê}{pronoun}{Third person pronoun, proximate.}
+
+    \section{H}
+    \section{L}
+    \section{J}
+    \section{R}
+
+    \chapter{English → \name}
+}
+% \end{twocolumn}
+
+\end{document}
